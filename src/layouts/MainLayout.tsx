@@ -2,15 +2,17 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import ChatInterface from '../components/chat/ChatInterface';
 
-const MainLayout: React.FC = () => {
+const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-neutral-950 text-white">
       <Navbar />
-      <main className="flex-grow">
+      <main>
         <Outlet />
       </main>
       <Footer />
+      <ChatInterface />
     </div>
   );
 };
