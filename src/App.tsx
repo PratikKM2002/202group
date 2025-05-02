@@ -40,6 +40,21 @@ function App() {
   const { initialize, user, isLoading } = useAuthStore();
 
   useEffect(() => {
+    // Clear persisted store data on app initialization
+    clearPersistedStore();
+    
+    // TEMP: Set mock restaurant manager user for testing
+    const managerUser = {
+      id: '3',
+      email: 'manager@italianplace.com',
+      name: 'Mario Rossi',
+      role: UserRole.RestaurantManager,
+      restaurantId: '1' // Link to Fog City Diner from mockData
+    };
+    
+    localStorage.setItem('admin_data', JSON.stringify(managerUser));
+    localStorage.setItem('user', JSON.stringify(managerUser));
+
     initialize();
     // Test AWS connection
     testAwsConnection().then(success => {
@@ -53,11 +68,6 @@ function App() {
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
-  }, []);
-
-  useEffect(() => {
-    // Clear persisted store data on app initialization
-    clearPersistedStore();
   }, []);
 
   if (isLoading) {

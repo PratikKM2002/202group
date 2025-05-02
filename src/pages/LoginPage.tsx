@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import LoginForm from '../components/auth/LoginForm';
 
 const LoginPage: React.FC = () => {
-  const [role, setRole] = useState<'customer' | 'manager' | 'admin'>('customer');
+  const location = useLocation();
+  const getInitialRole = () => {
+    const params = new URLSearchParams(location.search);
+    const urlRole = params.get('role');
+    if (urlRole === 'manager' || urlRole === 'admin') return urlRole;
+    return 'customer';
+  };
+  const [role, setRole] = useState<'customer' | 'manager' | 'admin'>(getInitialRole());
+
+  // Update role if URL changes
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const urlRole = params.get('role');
+    if (urlRole === 'manager' || urlRole === 'admin') setRole(urlRole);
+    else setRole('customer');
+  }, [location.search]);
 
   return (
     <div className="container mx-auto py-10 px-4">
