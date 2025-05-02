@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply text-neutral-800 dark:text-neutral-100;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply font-sans bg-neutral-900;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight text-neutral-900 dark:text-white;
+  }
+  
+  h1 {
+    @apply text-4xl leading-tight;
+  }
+  
+  h2 {
+    @apply text-3xl leading-tight;
+  }
+  
+  h3 {
+    @apply text-2xl leading-snug;
+  }
+  
+  h4 {
+    @apply text-xl leading-snug;
+  }
+  
+  h5 {
+    @apply text-lg leading-normal;
+  }
+  
+  h6 {
+    @apply text-base leading-normal;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500;
+  }
+  
+  .btn-accent {
+    @apply btn bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-500;
+  }
+  
+  .btn-outline {
+    @apply btn bg-transparent border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 focus:ring-neutral-500;
+  }
+  
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+  
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+  
+  .input {
+    @apply px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 focus:outline-none dark:bg-neutral-800 dark:text-white;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 overflow-hidden;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .time-slot {
+    @apply px-3 py-1.5 text-sm font-medium rounded-md border transition-colors duration-200 cursor-pointer;
+  }
+  
+  .time-slot-available {
+    @apply border-primary-300 dark:border-primary-600 bg-primary-50 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-800/50;
+  }
+  
+  .time-slot-unavailable {
+    @apply border-neutral-300 dark:border-neutral-600 bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 cursor-not-allowed;
+  }
+  
+  .time-slot-selected {
+    @apply border-primary-500 bg-primary-500 text-white;
+  }
+
+  /* Frosted glass effects */
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-neutral-900/70 border border-white/20 dark:border-neutral-700/30 shadow-lg;
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-md bg-neutral-900/70 border border-neutral-800/30 shadow-lg;
+  }
+
+  .glass-primary {
+    @apply backdrop-blur-md bg-primary-500/90 border border-primary-400/30 shadow-lg;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-neutral-800/90 rounded-lg border border-neutral-700/30 shadow-lg;
+  }
+
+  .glass-nav {
+    @apply backdrop-blur-md bg-white/90 dark:bg-neutral-900/90 border-b border-neutral-200/50 dark:border-neutral-700/50 shadow-sm;
+  }
+}
+
+/* Add animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Add animation utilities */
+.scroll-animation {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.animate-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Leaflet map styles */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+}
