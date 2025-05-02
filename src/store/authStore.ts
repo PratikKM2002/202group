@@ -26,13 +26,7 @@ const useAuthStore = create<AuthState>((set) => ({
 
   initialize: async () => {
     try {
-      const token = localStorage.getItem('auth_token');
-      if (!token) {
-        set({ user: null, isLoading: false });
-        return;
-      }
-
-      // Check if it's a stored admin session
+      // Check if it's a stored admin session FIRST
       const adminData = localStorage.getItem('admin_data');
       if (adminData) {
         const admin = JSON.parse(adminData);
@@ -40,6 +34,13 @@ const useAuthStore = create<AuthState>((set) => ({
           user: admin,
           isLoading: false
         });
+        return;
+      }
+
+      // Then check for token for other users
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        set({ user: null, isLoading: false });
         return;
       }
 

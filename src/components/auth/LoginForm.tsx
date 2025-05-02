@@ -94,21 +94,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ userRole = 'customer' }) => {
       // Reset login attempts on successful login
       setLoginAttempts(0);
       localStorage.removeItem('loginLockoutEndTime');
-      
-      // Redirect based on role
+        
+        // Redirect based on role
       if (userRole === 'admin') {
         navigate('/admin/dashboard');
       } else if (userRole === 'manager') {
-        navigate('/restaurant/dashboard');
-      } else {
-        const searchParams = new URLSearchParams(location.search);
-        const redirect = searchParams.get('redirect');
-        
-        if (redirect === 'pending-booking') {
-          navigate('/booking/confirmation');
+          navigate('/restaurant/dashboard');
         } else {
-          navigate('/');
-        }
+          const searchParams = new URLSearchParams(location.search);
+          const redirect = searchParams.get('redirect');
+          
+          if (redirect === 'pending-booking') {
+            navigate('/booking/confirmation');
+          } else {
+            navigate('/');
+          }
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';

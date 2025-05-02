@@ -13,8 +13,11 @@ const HomePage: React.FC = () => {
     fetchRestaurants();
   }, [fetchRestaurants]);
   
+  // Only show non-suspended restaurants
+  const visibleRestaurants = restaurants.filter(r => !r.suspended);
+
   // Get top rated restaurants
-  const topRatedRestaurants = [...restaurants]
+  const topRatedRestaurants = [...visibleRestaurants]
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 3);
 

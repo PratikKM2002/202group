@@ -86,6 +86,9 @@ const SearchResultsPage: React.FC = () => {
   };
   
   const searchInfo = getSearchInfo();
+  
+  // Only show non-suspended restaurants in search results
+  const visibleFilteredRestaurants = filteredRestaurants.filter(r => !r.suspended);
 
   return (
     <div>
@@ -224,11 +227,11 @@ const SearchResultsPage: React.FC = () => {
         <div className="mt-6">
           {showMap ? (
             <div className="h-[600px] rounded-lg overflow-hidden">
-              <RestaurantMap restaurants={filteredRestaurants} height="100%" />
+              <RestaurantMap restaurants={visibleFilteredRestaurants} height="100%" />
             </div>
           ) : (
             <RestaurantList 
-              restaurants={filteredRestaurants} 
+              restaurants={visibleFilteredRestaurants} 
               isLoading={isLoading}
               showTimeSlots
               onTimeSelect={handleTimeSelect}

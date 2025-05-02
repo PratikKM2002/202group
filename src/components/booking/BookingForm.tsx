@@ -91,22 +91,22 @@ const BookingForm: React.FC<BookingFormProps> = ({
       
       <div className="mb-6">
         <label className="block text-sm font-medium text-neutral-300 mb-2">
-          Date
-        </label>
-        <div className="relative">
-          <DatePicker
-            selected={date}
-            onChange={(date: Date) => setDate(date)}
-            dateFormat="MMMM d, yyyy"
-            minDate={new Date()}
+            Date
+          </label>
+          <div className="relative">
+            <DatePicker
+              selected={date}
+              onChange={(date: Date) => setDate(date)}
+              dateFormat="MMMM d, yyyy"
+              minDate={new Date()}
             maxDate={addDays(new Date(), 30)}
             className="w-full pl-10 pr-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          />
-          <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+            />
+            <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+          </div>
         </div>
-      </div>
-      
-      <div className="mb-6">
+        
+        <div className="mb-6">
         <label className="block text-sm font-medium text-neutral-300 mb-2">
           Party Size
         </label>
@@ -128,67 +128,67 @@ const BookingForm: React.FC<BookingFormProps> = ({
       
       <div className="mb-6">
         <label className="block text-sm font-medium text-neutral-300 mb-2">
-          Time
-        </label>
+            Time
+          </label>
         <div className="space-y-4">
           {Object.entries(groupedTimeSlots).map(([hour, slots]) => (
             <div key={hour} className="space-y-2">
               <h3 className="text-sm font-medium text-neutral-400">{hour}:00</h3>
-              <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
                 {slots.map((slot, slotIndex) => {
                   const index = timeSlots.findIndex(s => s.time === slot.time);
                   return (
-                    <button
-                      key={slot.time}
-                      type="button"
+              <button
+                key={slot.time}
+                type="button"
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        index === selectedTimeIndex
+                  index === selectedTimeIndex
                           ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30 scale-105'
-                          : slot.available
+                    : slot.available
                           ? 'bg-neutral-700 text-white hover:bg-neutral-600'
                           : 'bg-neutral-800 text-neutral-500 cursor-not-allowed opacity-50'
-                      }`}
-                      onClick={() => slot.available && handleTimeSelect(index)}
-                      disabled={!slot.available}
-                    >
-                      {slot.time}
-                    </button>
+                }`}
+                onClick={() => slot.available && handleTimeSelect(index)}
+                disabled={!slot.available}
+              >
+                {slot.time}
+              </button>
                   );
                 })}
               </div>
             </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-      
-      <div className="mb-6">
+        
+        <div className="mb-6">
         <label htmlFor="specialRequests" className="block text-sm font-medium text-neutral-300 mb-2">
-          Special Requests (optional)
-        </label>
-        <div className="relative">
-          <textarea
-            id="specialRequests"
-            value={specialRequests}
-            onChange={(e) => setSpecialRequests(e.target.value)}
-            placeholder="Any special requests or dietary restrictions?"
+            Special Requests (optional)
+          </label>
+          <div className="relative">
+            <textarea
+              id="specialRequests"
+              value={specialRequests}
+              onChange={(e) => setSpecialRequests(e.target.value)}
+              placeholder="Any special requests or dietary restrictions?"
             className="w-full pl-10 pr-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-            rows={3}
-          />
-          <MessageSquare className="absolute left-3 top-3 text-neutral-400" size={18} />
+              rows={3}
+            />
+            <MessageSquare className="absolute left-3 top-3 text-neutral-400" size={18} />
+          </div>
         </div>
-      </div>
-      
-      <Button
-        type="submit"
-        variant="primary"
-        size="lg"
-        fullWidth
-        loading={isLoading}
+        
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          fullWidth
+          loading={isLoading}
         className="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700"
-      >
+        >
         {user ? 'Complete Reservation' : 'Sign in to Book'}
-      </Button>
-    </form>
+        </Button>
+      </form>
   );
 };
 
