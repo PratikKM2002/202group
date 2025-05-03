@@ -29,6 +29,21 @@ const ChatInterface = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Real Gemini API call
+  const callLLM = async (input: string): Promise<string> => {
+    const response = await fetch('http://localhost:4001/api/llm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          { role: 'user', content: input }
+        ]
+      })
+    });
+    const data = await response.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not get a response.';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -44,15 +59,12 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual API call to your LLM backend
-      const response = await mockLLMResponse(input.trim());
-      
+      const response = await callLLM(input.trim());
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,
         timestamp: new Date()
       };
-
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error getting response:', error);
@@ -63,23 +75,6 @@ const ChatInterface = () => {
       }]);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  // Temporary mock response function
-  const mockLLMResponse = async (input: string): Promise<string> => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Simple response logic
-    if (input.toLowerCase().includes('recommend')) {
-      return 'I can recommend several great restaurants! What type of cuisine are you interested in?';
-    } else if (input.toLowerCase().includes('book')) {
-      return 'I can help you make a reservation. Which restaurant would you like to book?';
-    } else if (input.toLowerCase().includes('hours')) {
-      return 'Most restaurants are open from 11 AM to 10 PM. Would you like specific hours for a particular restaurant?';
-    } else {
-      return 'I\'m here to help with restaurant recommendations, bookings, and general dining information. What would you like to know?';
     }
   };
 

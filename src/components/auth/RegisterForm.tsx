@@ -12,6 +12,7 @@ const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [role, setRole] = useState<'customer' | 'manager' | 'admin'>('customer');
   const [validationError, setValidationError] = useState<string | null>(null);
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,7 +33,7 @@ const RegisterForm: React.FC = () => {
     }
     
     try {
-      await register(email, name, password);
+      await register(email, name, password, role);
       navigate('/');
     } catch (error: any) {
       console.error('Registration error:', error);
@@ -49,14 +50,7 @@ const RegisterForm: React.FC = () => {
         const errorCode = errorBody?.code || error?.code;
         
         if (errorCode === 'user_already_exists') {
-          setValidationError(
-            <span>
-              This email is already registered.{' '}
-              <a href="/login" className="text-primary-600 hover:text-primary-500 font-medium">
-                Sign in instead
-              </a>
-            </span>
-          );
+          setValidationError('This email is already registered. Please sign in instead.');
           return;
         }
         
@@ -147,6 +141,23 @@ const RegisterForm: React.FC = () => {
             />
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
           </div>
+        </div>
+        
+        <div>
+          <label htmlFor="role" className="block text-sm font-medium text-neutral-700 mb-1">
+            Account Type
+          </label>
+          <select
+            id="role"
+            value={role}
+            onChange={e => setRole(e.target.value as 'customer' | 'manager' | 'admin')}
+            className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            required
+          >
+            <option value="customer">Customer</option>
+            <option value="manager">Restaurant Manager</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
         
         {(validationError || error) && (
