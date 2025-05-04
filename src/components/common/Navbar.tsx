@@ -5,7 +5,7 @@ import useAuthStore from '../../store/authStore';
 import { UserRole } from '../../types';
 
 const Navbar: React.FC = () => {
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
     
     switch (user.role) {
       case UserRole.Admin:
-        return '/admin/dashboard';
+        return '/admin';
       case UserRole.RestaurantManager:
         return '/restaurant/dashboard';
       case UserRole.Customer:
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
               About
             </Link>
             
-            {isAuthenticated ? (
+            {user ? (
               <div className="relative">
                 <button
                   type="button"
@@ -205,7 +205,7 @@ const Navbar: React.FC = () => {
           </div>
           
           <div className="border-t border-neutral-700/50 pt-4 pb-3">
-            {isAuthenticated ? (
+            {user ? (
               <div>
                 <div className="flex items-center px-4">
                   <div className="flex-shrink-0">

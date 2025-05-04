@@ -40,7 +40,7 @@ const DashboardLayout: React.FC = () => {
       ];
     } else if (user?.role === UserRole.Admin) {
       return [
-        { icon: <BarChart3 size={20} />, text: 'Dashboard', to: '/admin/dashboard' },
+        { icon: <BarChart3 size={20} />, text: 'Dashboard', to: '/admin' },
         { icon: <Utensils size={20} />, text: 'Restaurant Management', to: '/admin/restaurants' },
         { icon: <ClipboardCheck size={20} />, text: 'Restaurant Requests', to: '/admin/restaurant-requests' },
         { icon: <Calendar size={20} />, text: 'Bookings', to: '/admin/bookings' },
@@ -113,9 +113,9 @@ const DashboardLayout: React.FC = () => {
                   key={link.to}
                   to={link.to}
                   onClick={() => {
-                    // Always navigate to /admin/dashboard for Dashboard link
+                    // Always navigate to /admin for Dashboard link
                     if (user?.role === UserRole.Admin && link.text === 'Dashboard') {
-                      navigate('/admin/dashboard');
+                      navigate('/admin');
                     }
                   }}
                   children={({ isActive }) => (

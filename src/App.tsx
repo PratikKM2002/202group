@@ -11,6 +11,8 @@ import { UserRole } from './types';
 // Layouts
 import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
+import RestaurantManagerLayout from './layouts/RestaurantManagerLayout';
+import AdminLayout from './layouts/AdminLayout';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -35,6 +37,10 @@ import AdminBookingsPage from './pages/admin/AdminBookingsPage';
 import AdminRestaurantRequestsPage from './pages/admin/AdminRestaurantRequestsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AboutPage from './pages/AboutPage';
+import RestaurantManagerEditPage from './pages/restaurant/RestaurantManagerEditPage';
+import RestaurantManagerAddPage from './pages/restaurant/RestaurantManagerAddPage';
+import AdminAnalyticsPage from './pages/admin/AdminAnalyticsPage';
+import AdminRestaurantEditPage from './pages/admin/AdminRestaurantEditPage';
 
 function App() {
   const { initialize, user, isLoading } = useAuthStore();
@@ -114,26 +120,28 @@ function App() {
         {/* Restaurant Manager Dashboard */}
         <Route path="/manager" element={
           <ProtectedRoute allowedRoles={[UserRole.RestaurantManager]}>
-            <DashboardLayout />
+            <RestaurantManagerLayout />
           </ProtectedRoute>
         }>
           <Route index element={<RestaurantManagerPage />} />
           <Route path="restaurants/:id" element={<RestaurantDashboardPage />} />
-          <Route path="restaurants/:id/edit" element={<RestaurantEditPage />} />
+          <Route path="restaurants/:id/edit" element={<RestaurantManagerEditPage />} />
           <Route path="restaurants/:id/bookings" element={<RestaurantBookingsPage />} />
+          <Route path="restaurants/new" element={<RestaurantManagerAddPage />} />
         </Route>
         
         {/* Admin Dashboard */}
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={[UserRole.Admin]}>
-            <DashboardLayout />
+            <AdminLayout />
           </ProtectedRoute>
         }>
-          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route index element={<AdminDashboardPage />} />
           <Route path="restaurants" element={<AdminRestaurantsPage />} />
-          <Route path="restaurants/:id/edit" element={<RestaurantEditPage />} />
+          <Route path="restaurants/:id/edit" element={<AdminRestaurantEditPage />} />
           <Route path="restaurant-requests" element={<AdminRestaurantRequestsPage />} />
           <Route path="bookings" element={<AdminBookingsPage />} />
+          <Route path="analytics" element={<AdminAnalyticsPage />} />
         </Route>
 
         {/* Restaurant Creation */}
